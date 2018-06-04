@@ -1,18 +1,31 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      input: "",
+      vehicles: ["truck", "van", "car", "bike"]
+    };
+  }
+
   render() {
+    let list = this.state.vehicles
+      .filter(val => {
+        return val.includes(this.state.input);
+      })
+      .map((val, i) => {
+        return <h2 key={i}>{val}</h2>;
+      });
+
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <div className="center">
+        <input
+          onChange={event => this.setState({ input: event.target.value })}
+        />
+        {list}
       </div>
     );
   }
